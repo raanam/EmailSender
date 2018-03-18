@@ -3,13 +3,80 @@
   <div class="card">
     <h5 class="card-header">Send email</h5>
     <div class="card-body">
-      <form>
+      <form novalidate [formGroup]="formModel">
         <div class="form-group">
           <label for="to">To</label>
-          <input type="text" name="to" class="form-control" placeholder="Enter comma separater email address"/>
+          <input type="text"
+                 name="to"
+                 [formControl]="formModel.controls.to"
+                 class="form-control"
+                 placeholder="Enter comma separater email address"
+                 [ngClass]="{'has-error':!formModel.controls['to'].valid && formModel.controls['to'].touched}" />
+          <div class="alert alert-danger"
+               role="alert"
+               *ngIf="!formModel.controls['to'].valid && formModel.controls['to'].touched">
+            Please enter valid email ids separated by comma.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cc">Cc</label>
+          <input type="text"
+                 name="cc"
+                 [formControl]="formModel.controls.cc"
+                 class="form-control"
+                 placeholder="Enter comma separater email address"
+                 [ngClass]="{'has-error':!formModel.controls['cc'].valid && formModel.controls['cc'].touched}" />
+          <div class="alert alert-danger"
+               role="alert"
+               *ngIf="!formModel.controls['cc'].valid && formModel.controls['cc'].touched">
+            Please enter valid email ids separated by comma.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="bcc">Bcc</label>
+          <input type="text"
+                 name="bcc"
+                 [formControl]="formModel.controls.bcc"
+                 class="form-control"
+                 placeholder="Enter comma separater email address"
+                 [ngClass]="{'has-error':!formModel.controls['bcc'].valid && formModel.controls['bcc'].touched}" />
+          <div class="alert alert-danger"
+               role="alert"
+               *ngIf="!formModel.controls['bcc'].valid && formModel.controls['bcc'].touched">
+            Please enter valid email ids separated by comma.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" name="subject"
+                 [formControl]="formModel.controls.subject"
+                 class="form-control"
+                 placeholder="Enter subject"
+                 [ngClass]="{'has-error':!formModel.controls['subject'].valid && formModel.controls['subject'].touched}" />
+          <div class="alert alert-danger"
+               role="alert"
+               *ngIf="!formModel.controls['subject'].valid && formModel.controls['subject'].touched">
+            Subject is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="subject">Message</label>
+          <textarea type="text"
+                    name="message"
+                    [formControl]="formModel.controls.message"
+                    class="form-control"
+                    placeholder="Enter subject"
+                    rows="8"
+                    cols="8"
+                    [ngClass]="{'has-error':!formModel.controls['message'].valid && formModel.controls['message'].touched}"></textarea>
+          <div class="alert alert-danger"
+               role="alert"
+               *ngIf="!formModel.controls['message'].valid && formModel.controls['message'].touched">
+            Message is required.
+          </div>
         </div>
       </form>
-      <a href="#" class="btn btn-primary">Send</a>
+      <button type="submit" class="btn btn-primary" (click)="send()" [disabled]="!formModel.valid">Send</button>
     </div>
   </div>
 </div>
