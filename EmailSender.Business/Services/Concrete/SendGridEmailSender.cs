@@ -39,13 +39,15 @@ namespace EmailSender.Business.Services
 
     public class SendGridEmailSender : IEmailServiceProviders
     {
+        private const string PROVIDER_KEY = "";
+
         public void SendEmail(Email email)
         {
             RestClient client = new RestClient();
             client.BaseUrl = new Uri("https://api.sendgrid.com/v3/mail/send");
 
             RestRequest request = new RestRequest();
-            request.AddParameter("Authorization", "", ParameterType.HttpHeader);
+            request.AddParameter("Authorization", PROVIDER_KEY, ParameterType.HttpHeader);
 
             var body = new SendGridEmailRequest();
             body.personalizations = new Personalization[1] { new Personalization() };
