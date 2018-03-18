@@ -56,7 +56,7 @@ namespace EmailSender.Business.Services
                 body.personalizations[0].to = new List<To>();
                 email.To.ForEach(eachRx =>
                 {
-                    body.personalizations[0].to.Add(new To() { email = eachRx });
+                    body.personalizations[0].to.Add(new To() { email = eachRx.Trim() });
                 });
             }
            
@@ -65,7 +65,7 @@ namespace EmailSender.Business.Services
                 body.personalizations[0].cc = new List<To>();
                 email.Cc.ForEach(eachRx =>
                 {
-                    body.personalizations[0].cc.Add(new To() { email = eachRx });
+                    body.personalizations[0].cc.Add(new To() { email = eachRx.Trim() });
                 });
             }
             
@@ -74,7 +74,7 @@ namespace EmailSender.Business.Services
                 body.personalizations[0].bcc = new List<To>();
                 email.Bcc.ForEach(eachRx =>
                 {
-                    body.personalizations[0].bcc.Add(new To() { email = eachRx });
+                    body.personalizations[0].bcc.Add(new To() { email = eachRx.Trim() });
                 });
             }
 
@@ -95,6 +95,11 @@ namespace EmailSender.Business.Services
             request.AddBody(body);
             request.Method = Method.POST;
             var response = client.Execute(request);
+
+            if (response.StatusCode != System.Net.HttpStatusCode.Accepted)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { SendEmailComponent } from './send-email/send-email.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SendEmailService } from './service/SendEmailService';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     NgbModule.forRoot()
   ],
-  providers: [],
+  providers: [SendEmailService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

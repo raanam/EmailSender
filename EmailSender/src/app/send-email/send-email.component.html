@@ -5,7 +5,7 @@
     <div class="card-body">
       <form novalidate [formGroup]="formModel">
         <div class="form-group">
-          <label for="to">To</label>
+          <label for="to">To *</label>
           <input type="text"
                  name="to"
                  [formControl]="formModel.controls.to"
@@ -47,7 +47,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="subject">Subject</label>
+          <label for="subject">Subject *</label>
           <input type="text" name="subject"
                  [formControl]="formModel.controls.subject"
                  class="form-control"
@@ -60,7 +60,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="subject">Message</label>
+          <label for="subject">Message *</label>
           <textarea type="text"
                     name="message"
                     [formControl]="formModel.controls.message"
@@ -76,7 +76,12 @@
           </div>
         </div>
       </form>
-      <button type="submit" class="btn btn-primary" (click)="send()" [disabled]="!formModel.valid">Send</button>
+      <div style="position:relative;height:20px;">
+        <button type="submit" class="btn btn-primary" (click)="send()" [disabled]="!formModel.valid" *ngIf="!sendingEmail">Send</button>
+        <div style="position:absolute;left:20px;" *ngIf="sendingEmail">
+          <span class="fa-li"><i class="fas fa-spinner fa-pulse"></i></span>Sending email
+        </div>
+      </div>
     </div>
   </div>
 </div>

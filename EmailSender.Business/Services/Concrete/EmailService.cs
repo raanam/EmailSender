@@ -17,17 +17,24 @@ namespace EmailSender.Business.Services
 
         public void SendEmail(Email email)
         {
+            string errMsg = string.Empty;
             foreach (var eachEmailProvider in _emailServiceProviders)
             {
                 try
                 {
                     eachEmailProvider.SendEmail(email);
+                    errMsg = string.Empty;
                     break;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // TODO: Log the failure and provider.
+                    errMsg = ex.Message;
                 }
+            }
+
+            if (string.IsNullOrWhiteSpace(errMsg) == false)
+            {
+                throw new Exception(errMsg);
             }
         }
     }

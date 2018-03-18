@@ -19,10 +19,14 @@ namespace EmailSender.Business.Services
             client.Authenticator =
             new HttpBasicAuthenticator("api", "key-9f9bf10b89838e5994d2545978caee01");
             RestRequest request = new RestRequest();
-            request.AddParameter("domain", "sandbox6e1142287fac4845847432fb5383092f.mailgun.org", ParameterType.UrlSegment);
+            request.AddParameter("domain", "", ParameterType.UrlSegment);
             request.Resource = "{domain}/messages";
             request.AddParameter("from", "Mailgun Sandbox <postmaster@sandbox6e1142287fac4845847432fb5383092f.mailgun.org>");
-            request.AddParameter("to", BuildSenderList(email.To));
+
+            if (email.To != null && email.To.Count > 0)
+            {
+                request.AddParameter("to", BuildSenderList(email.To));
+            }
 
             if (email.Cc != null && email.Cc.Count > 0)
             {
@@ -39,6 +43,11 @@ namespace EmailSender.Business.Services
 
             request.Method = Method.POST;
             var response = client.Execute(request);
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                throw new Exception(response.ErrorMessage);
+            }
         }
 
         private string BuildSenderList(List<string> recipients)
@@ -46,7 +55,7 @@ namespace EmailSender.Business.Services
             if (recipients != null && recipients.Count > 0)
             {
                 // Wrap each recipient email address inside <>
-                var formatted = recipients.Select(eachRx => $"<{eachRx}>").ToList();
+                var formatted = recipients.Select(eachRx => $"<{eachRx.Trim()}>").ToList();
 
                 return String.Join(",", formatted);
             }
