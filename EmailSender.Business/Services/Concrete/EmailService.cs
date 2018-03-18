@@ -17,7 +17,18 @@ namespace EmailSender.Business.Services
 
         public void SendEmail(Email email)
         {
-           
+            foreach (var eachEmailProvider in _emailServiceProviders)
+            {
+                try
+                {
+                    eachEmailProvider.SendEmail(email);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    // TODO: Log the failure and provider.
+                }
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ namespace EmailSender.Business.Services
     {
         public void SendEmail(Email email)
         {
-          
+            throw new NotImplementedException();
         }
     }
 }
