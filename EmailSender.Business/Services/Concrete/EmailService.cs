@@ -24,7 +24,7 @@ namespace EmailSender.Business.Services
                     eachEmailProvider.SendEmail(email);
                     break;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // TODO: Log the failure and provider.
                 }

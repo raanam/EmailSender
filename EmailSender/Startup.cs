@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,7 +17,7 @@ namespace EmailSender
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IEmailServiceProviders, MailGunEmailSender>();
+            //services.AddScoped<IEmailServiceProviders, MailGunEmailSender>();
             services.AddScoped<IEmailServiceProviders, SendGridEmailSender>();
             services.AddScoped<IEmailService, EmailService>();
 
