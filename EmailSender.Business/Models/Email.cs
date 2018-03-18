@@ -13,5 +13,7 @@ namespace EmailSender.Business.Models
         public List<String> Bcc { get; set; }
 
         public String Message { get; set; }
+
+        public String Subject { get; set; }
     }
 }
